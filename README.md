@@ -8,6 +8,15 @@ This card will display a doughnut chart based on your specified entities. This w
 - url: /local/pie-chart-card.js
   type: module
 ```
+## iPa64 13.12.2020  
+About the bug with color not displayed, added the workaround proposed by MACscr (disabled auto update), not perfect but better than the original issue.
+Added attributes: 
+  chart_type: doughnut or pie
+  display_legend: false or true
+Size modified, 150
+
+Need to do:
+ define size by attribute
 
 ## Options
 
