@@ -8,7 +8,7 @@ This card will display a doughnut chart based on your specified entities. This w
 - url: /local/pie-chart-card.js
   type: module
 ```
-## iPa64 13.12.2020  
+----iPa64 13.12.2020  
 About the bug with color not displayed, added the workaround proposed by MACscr (disabled auto update), not perfect but better than the original issue.
 Added attributes: 
   chart_type: doughnut or pie
@@ -27,6 +27,7 @@ Need to do:
 | title | `string` | "Pie Chart" | Title of the card.
 | total_amount | `string` | none | Either an entity or number which provides the total value for the pie chart. If provided, then other measured values will be substracted from total to calculate 'unknown' value.
 | unknownText | `string` | none | Optional customized unknown text. Only applicable with `total_amount` option enabled.
+| chart_type | `string` | none | doughnut or pie.
 
 ## `Entity` Object
 | Name | Type | Default | Description
