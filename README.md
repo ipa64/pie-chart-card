@@ -28,6 +28,7 @@ Need to do:
 | total_amount | `string` | none | Either an entity or number which provides the total value for the pie chart. If provided, then other measured values will be substracted from total to calculate 'unknown' value.
 | unknownText | `string` | none | Optional customized unknown text. Only applicable with `total_amount` option enabled.
 | chart_type | `string` | none | doughnut or pie.
+| display_legend | `boolean` | true | display or hide legend
 
 ## `Entity` Object
 | Name | Type | Default | Description
