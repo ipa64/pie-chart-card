@@ -1,17 +1,23 @@
+/*
+Added this attribute, PM13.12.2020
+chart_type: doughnut
+*/
 import "https://unpkg.com/chart.js@v2.9.3/dist/Chart.bundle.min.js?module";
 import "https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes";
 
 console.info(
   `%cPIE-CHART-CARD\n%cVersion: 0.0.1`,
-  "color: white; background: olive; font-weight: bold;",
-  "color: olive; background: white; font-weight: bold;",
+  "color: white; background: black; font: font-weight: bold;",
+  "color: black; background: white; font: font-weight: bold;",
   ""
 );
 
 class PieChartCard extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({
+		 mode: 'open' 
+	});
   }
 
   setConfig(config) {
@@ -30,8 +36,8 @@ class PieChartCard extends HTMLElement {
     card.id ='ha-card';
     content.id = 'content';
     canvas.id = 'cnv';
-    content.style.height = '480px';
-    canvas.height=480;
+    content.style.height = '150px';
+    canvas.height=150;
     card.appendChild(content);
     card.appendChild(style);
     content.appendChild(canvas);
@@ -40,6 +46,13 @@ class PieChartCard extends HTMLElement {
   }
 
   set hass(hass) {
+	  
+	  // dont update workaround. not pretty
+	if (this.ran) {
+	  return;
+	}
+	this.ran = true;
+	  
     const root = this.shadowRoot;
     const config = this._config;
     const card = root.getElementById("ha-card");
@@ -47,6 +60,11 @@ class PieChartCard extends HTMLElement {
     const canvas = root.getElementById("cnv");
     const ctx = canvas.getContext('2d');
     const hassEntities = config.entities.map(x => hass.states[x.entity]);
+
+    var display_legend = true;
+    if (config.display_legend !== undefined) {
+      display_legend = config.display_legend;
+    }    
     
     // If a name is not provided, use the friendly_name for the entity. If the friendly_name
     // does not exist, use the actual entity.
@@ -76,7 +94,7 @@ class PieChartCard extends HTMLElement {
     entityNames = entityNames.filter((element, index, array) => !emptyIndexes.includes(index));
 
     const doughnutChart = new Chart(ctx, {
-        type: 'doughnut',
+        type: config.chart_type,    //'pie',
         data: {
           labels: [],
           datasets: [{
@@ -92,10 +110,24 @@ class PieChartCard extends HTMLElement {
             animation: { duration: 0 },
             legend: {
                 position: 'bottom',
-                display: true
+                display: display_legend
              },
             hover: { mode: 'index' },
-            plugins: {colorschemes: { scheme: 'brewer.DarkTwo8' } },
+            //plugins: {colorschemes: { scheme: 'brewer.Accent8' } },
+            plugins: {
+              labels: [{
+                  render: 'label',
+                  position: 'inside',
+                  fontColor: '#000',
+                  textMargin: 6
+                }
+                // },
+                // {
+                //   render: 'percentage',
+                //   fontColor: '#000',
+                // }
+              ]
+            },            
             // https://stackoverflow.com/a/49717859
             tooltips: {
               callbacks: {
