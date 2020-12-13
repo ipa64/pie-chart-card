@@ -1,6 +1,7 @@
 /*
 Added this attribute, PM13.12.2020
-chart_type: doughnut
+chart_type: doughnut / pie
+display_legend: false /true
 */
 import "https://unpkg.com/chart.js@v2.9.3/dist/Chart.bundle.min.js?module";
 import "https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes";
@@ -47,7 +48,7 @@ class PieChartCard extends HTMLElement {
 
   set hass(hass) {
 	  
-	  // dont update workaround. not pretty
+	  // MACscr dont update workaround. not pretty
 	if (this.ran) {
 	  return;
 	}
@@ -121,7 +122,8 @@ class PieChartCard extends HTMLElement {
                   fontColor: '#000',
                   textMargin: 6
                 }
-                // },
+                // I don't need to display percentage
+                // }, 
                 // {
                 //   render: 'percentage',
                 //   fontColor: '#000',
